@@ -9,7 +9,6 @@ PyMuPDF==1.23.26
 requests==2.32.3
 beautifulsoup4==4.12.3
 trafilatura==1.12.2
-sentence-transformers==3.1.1
 pypdf==5.0.1
 pydantic==2.9.2
 aiohttp==3.10.5
@@ -20,4 +19,3 @@ lxml>=5.1.0
 psycopg[binary]==3.2.9
 pgvector==0.3.6
 SQLAlchemy==2.0.41
-torch==2.3.1

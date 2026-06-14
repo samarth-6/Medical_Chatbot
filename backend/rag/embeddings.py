@@ -1,47 +1,37 @@
-print("EMBEDDINGS.PY IMPORTED")
-from sentence_transformers import (
-    SentenceTransformer
+import google.generativeai as genai
+import os
+
+genai.configure(
+    api_key=os.getenv("GEMINI_API_KEY")
 )
 
 class EmbeddingModel:
-    _model = None
-    @classmethod
-    def get_model(cls):
-    
-        print("LOADING SENTENCE TRANSFORMER")
-    
-        if cls._model is None:
-        
-            cls._model = SentenceTransformer(
-                "all-MiniLM-L6-v2"
+
+    @staticmethod
+    def embed_documents(texts):
+
+        embeddings = []
+
+        for text in texts:
+            result = genai.embed_content(
+                model="models/text-embedding-004",
+                content=text,
+                task_type="retrieval_document"
             )
-    
-        print("MODEL LOADED")
-    
-        return cls._model
 
-    @classmethod
-    def embed_documents(
-        cls,
-        texts
-    ):
+            embeddings.append(
+                result["embedding"]
+            )
 
-        model = cls.get_model()
+        return embeddings
 
-        return model.encode(
-            texts,
-            normalize_embeddings=True
-        ).tolist()
+    @staticmethod
+    def embed_query(query):
 
-    @classmethod
-    def embed_query(
-        cls,
-        query
-    ):
+        result = genai.embed_content(
+            model="models/text-embedding-004",
+            content=query,
+            task_type="retrieval_query"
+        )
 
-        model = cls.get_model()
-
-        return model.encode(
-            query,
-            normalize_embeddings=True
-        ).tolist()
+        return result["embedding"]

@@ -6,9 +6,7 @@ from backend.rag.embeddings import EmbeddingModel
 class VectorDB:
     @staticmethod
     def _to_pgvector(emb):
-        if hasattr(emb, 'tolist'):
-            emb = emb.tolist()
-        return '[' + ','.join(str(x) for x in emb) + ']'
+            return "[" + ",".join(str(x) for x in emb) + "]"
 
     def add_documents(self, session_id, chunks, source_name):
         conn = get_connection()
@@ -32,7 +30,7 @@ class VectorDB:
         register_vector(conn)
         cur = conn.cursor()
         query_embedding = EmbeddingModel.embed_query(query)
-        query_str = str(query_embedding.tolist()) if hasattr(query_embedding, 'tolist') else str(query_embedding)
+        query_vector = self._to_pgvector(query_embedding)
         cur.execute(
             """
             SELECT chunk_text, source, embedding <=> %s::vector as distance
@@ -41,7 +39,10 @@ class VectorDB:
             ORDER BY embedding <=> %s::vector
             LIMIT %s
             """,
-            (query_str, session_id, query_str, k)
+            (query_vector,
+            session_id,
+            query_vector,
+            k)
         )
         rows = cur.fetchall()
         cur.close()
@@ -49,5 +50,5 @@ class VectorDB:
         return {
             "documents": [[row[0] for row in rows]],
             "metadatas": [[{"source": row[1]} for row in rows]],
-            "distances": [[row[2] for row in rows]]   # <-- ADD THIS
+            "distances": [[row[2] for row in rows]]  
         }
