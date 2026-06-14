@@ -125,7 +125,7 @@ class ChatOrchestrator:
 
                 return {
     "answer": answer,
-    "sources": [] if worker == "rag" else sources
+    "sources": sources
 }
 
             except Exception as e:

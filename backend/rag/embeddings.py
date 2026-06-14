@@ -1,5 +1,5 @@
-import google.generativeai as genai
 import os
+import google.generativeai as genai
 
 genai.configure(
     api_key=os.getenv("GEMINI_API_KEY")
@@ -13,8 +13,9 @@ class EmbeddingModel:
         embeddings = []
 
         for text in texts:
+
             result = genai.embed_content(
-                model="models/text-embedding-004",
+                model="models/gemini-embedding-001",
                 content=text,
                 task_type="retrieval_document"
             )
@@ -29,7 +30,7 @@ class EmbeddingModel:
     def embed_query(query):
 
         result = genai.embed_content(
-            model="models/text-embedding-004",
+            model="models/gemini-embedding-001",
             content=query,
             task_type="retrieval_query"
         )
