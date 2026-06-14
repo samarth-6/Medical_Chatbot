@@ -3,7 +3,7 @@ import requests
 import streamlit as st
 
 
-BACKEND_URL = "http://localhost:8000"
+BACKEND_URL = "https://medical-chatbot-zu0r.onrender.com"
 
 st.set_page_config(
     page_title="Medical Multi-Agent Chatbot",
