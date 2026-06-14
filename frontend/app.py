@@ -1,9 +1,11 @@
-import uuid
+import os,uuid
 import requests
 import streamlit as st
 
+from dotenv import load_dotenv
+load_dotenv()
 
-BACKEND_URL = "https://medical-chatbot-zu0r.onrender.com"
+API_URL = os.getenv("BACKEND_URL")
 
 st.set_page_config(
     page_title="Medical Multi-Agent Chatbot",
@@ -88,7 +90,7 @@ with st.sidebar:
     try:
 
         docs = requests.get(
-            f"{BACKEND_URL}/documents/{st.session_state.session_id}"
+            f"{API_URL}/documents/{st.session_state.session_id}"
         ).json()
 
         for doc in docs:
@@ -111,7 +113,7 @@ with st.sidebar:
                 ):
 
                     requests.delete(
-                        f"{BACKEND_URL}/documents/"
+                        f"{API_URL}/documents/"
                         f"{st.session_state.session_id}/"
                         f"{doc['filename']}"
                     )
@@ -163,7 +165,7 @@ if (
                     )
 
                 response = requests.post(
-                    f"{BACKEND_URL}/upload",
+                    f"{API_URL}/upload",
                     data={
                         "session_id":
                         st.session_state.session_id
@@ -230,7 +232,7 @@ if prompt:
             ):
 
                 response = requests.post(
-                    f"{BACKEND_URL}/chat",
+                    f"{API_URL}/chat",
                     data={
                         "query": prompt,
                         "mode": mode,
@@ -310,7 +312,7 @@ if prompt:
     except requests.exceptions.ConnectionError:
 
         st.error(
-            "Cannot connect to backend."
+            "Cannot connect to API_URL."
         )
 
     except Exception as e:
