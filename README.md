@@ -162,21 +162,3 @@ This application is intended for informational and educational purposes only.
 It is not a substitute for professional medical advice, diagnosis, or treatment. Always consult qualified healthcare professionals regarding medical concerns.
 
 ---
-
-## Workflow
-
-User Question
-↓
-Planner Agent
-↓
-┌───────────────┬───────────────┐
-│ Web Search │ Document RAG │
-└───────────────┴───────────────┘
-↓
-Context Retrieval
-↓
-Gemini Synthesis Agent
-↓
-Final Answer + Sources
-
----
