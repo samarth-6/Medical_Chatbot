@@ -43,6 +43,13 @@ Sources:
 - PubMed
 - MedlinePlus
 - WebMD
+- Mayo Clinic
+- Healthline
+- National Institutes of Health (NIH)
+- World Health Organization (WHO)
+- Centers for Disease Control and Prevention (CDC)
+- Cleveland Clinic
+- Johns Hopkins Medicine
 
 Supports document-based RAG.
 """
