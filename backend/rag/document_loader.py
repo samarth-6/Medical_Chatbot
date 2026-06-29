@@ -1,7 +1,6 @@
 from pathlib import Path
 from pypdf import PdfReader
 
-
 class DocumentLoader:
     @staticmethod
     def load_pdf(file_path: str) -> str:
